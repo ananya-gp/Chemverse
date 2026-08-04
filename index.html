@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chemAI - Personalized Chemistry Learning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="atom-container">
+                <div class="atom">
+                    <div class="nucleus"></div>
+                    <div class="orbit orbit-1">
+                        <div class="electron"></div>
+                    </div>
+                    <div class="orbit orbit-2">
+                        <div class="electron"></div>
+                    </div>
+                    <div class="orbit orbit-3">
+                        <div class="electron"></div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="splash-title">chem<span class="highlight">AI</span></h1>
+            <p class="splash-tagline">Your Personalized Chemistry Learning Companion</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+        <div class="splash-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <!-- Login/Welcome Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-logo">chem<span class="highlight">AI</span></div>
+            <div class="login-subtitle">Personalized Chemistry Learning Platform</div>
+            
+            <!-- Existing Users List -->
+            <div id="existingUsersSection" class="existing-users hidden">
+                <h3>Welcome Back!</h3>
+                <div id="existingUsersList" class="users-list"></div>
+                <div class="divider"><span>or</span></div>
+            </div>
+            
+            <!-- New Profile Form -->
+            <div id="newProfileForm" class="login-form">
+                <h3 id="formTitle">Create Your Profile</h3>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="loginName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Class/Grade</label>
+                        <select id="loginClass" required>
+                            <option value="">Select your class</option>
+                            <option value="6">Class 6</option>
+                            <option value="7">Class 7</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Start Learning</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App (hidden until login) -->
+    <div id="mainApp" class="hidden">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="logo">chem<span class="highlight">AI</span></div>
+            <div class="nav-links">
+                <a href="#" data-page="home">Home</a>
+                <a href="#" data-page="quiz">Quiz</a>
+                <a href="#" data-page="periodic">Periodic Table</a>
+                <a href="#" data-page="organic">Organic Chemistry</a>
+                <a href="#" data-page="mistakes">Mistake Book</a>
+                <a href="#" data-page="leaderboard">Leaderboard</a>
+                <a href="#" data-page="analysis">Analysis</a>
+                <a href="#" data-page="dashboard">Dashboard</a>
+                <a href="#" data-page="profile">Profile</a>
+            </div>
+            <div class="nav-right">
+                <div class="user-badge" id="navUserBadge">
+                    <span class="user-avatar" id="navAvatar">?</span>
+                    <span class="user-name" id="navUserName">User</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+            </div>
+        </nav>
+
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1 id="welcomeMessage">Welcome to ChemLearn</h1>
+                <p id="welcomeSubtitle">Master Chemistry with Personalized Learning</p>
+                <button class="btn btn-primary" onclick="navigateTo('quiz')">Start Learning</button>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" onclick="navigateTo('quiz')">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Daily Quiz</h3>
+                    <p>Test your knowledge with adaptive quizzes</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('periodic')">
+                    <div class="feature-icon">⚛️</div>
+                    <h3>Periodic Table</h3>
+                    <p>Explore elements interactively</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('organic')">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Organic Chemistry</h3>
+                    <p>Practice reactions and mechanisms</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('dashboard')">
+                    <div class="feature-icon">📊</div>
+                    <h3>Your Progress</h3>
+                    <p>Track strengths and improve weak areas</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('mistakes')">
+                    <div class="feature-icon">📝</div>
+                    <h3>Mistake Book</h3>
+                    <p>Review and learn from your mistakes</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('leaderboard')">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Leaderboard</h3>
+                    <p>See how you rank against others</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('analysis')">
+                    <div class="feature-icon">📈</div>
+                    <h3>Analysis</h3>
+                    <p>Detailed performance insights</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profile" class="page">
+            <div class="container">
+                <h2>Your Profile</h2>
+                <div class="profile-card">
+                    <div class="profile-avatar" id="profileAvatar">?</div>
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="userName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Class/Grade</label>
+                            <select id="userClass" required>
+                                <option value="">Select your class</option>
+                                <option value="6">Class 6</option>
+                                <option value="7">Class 7</option>
+                                <option value="8">Class 8</option>
+                                <option value="9">Class 9</option>
+                                <option value="10">Class 10</option>
+                                <option value="11">Class 11</option>
+                                <option value="12">Class 12</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                    </form>
+                    <div class="profile-actions">
+                        <button class="btn btn-secondary" onclick="switchUser()">Switch User</button>
+                        <button class="btn btn-danger" onclick="createNewProfile()">New Profile</button>
+                    </div>
+                </div>
+                <div class="badges-section">
+                    <h3>Your Badges</h3>
+                    <div class="badges-grid" id="badgesGrid">
+                        <div class="badge locked" data-badge="first-quiz">🎯 First Quiz</div>
+                        <div class="badge locked" data-badge="streak-3">🔥 3 Day Streak</div>
+                        <div class="badge locked" data-badge="perfect-score">💯 Perfect Score</div>
+                        <div class="badge locked" data-badge="elements-master">⚛️ Elements Master</div>
+                        <div class="badge locked" data-badge="organic-pro">🧪 Organic Pro</div>
+                        <div class="badge locked" data-badge="score-1000">🏆 1000 Points</div>
+                        <div class="badge locked" data-badge="class-master">📚 Class Master</div>
+                        <div class="badge locked" data-badge="streak-7">🌟 7 Day Streak</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Page -->
+        <section id="quiz" class="page">
+            <div class="container">
+                <h2>Daily Chemistry Quiz</h2>
+                
+                <!-- Topic Selection -->
+                <div id="topicSelection">
+                    <div class="class-selector">
+                        <label>Your Class:</label>
+                        <span id="quizClassDisplay" class="class-display">Class 9</span>
+                    </div>
+                    
+                    <div class="difficulty-info">
+                        <span>Current Difficulty: </span>
+                        <span id="currentDifficulty" class="difficulty-badge easy">Easy</span>
+                    </div>
+
+                    <h3>Select Topic</h3>
+                    <div class="topics-grid" id="topicsGrid">
+                        <p class="placeholder-text">Loading topics...</p>
+                    </div>
+                </div>
+
+                <!-- Quiz Area -->
+                <div id="quizArea" class="hidden">
+                    <div class="quiz-header">
+                        <div class="quiz-info">
+                            <span>Question <span id="questionNum">1</span>/<span id="totalQuestions">10</span></span>
+                            <span id="timer" class="timer">00:00</span>
+                        </div>
+                        <div class="score-display">Score: <span id="currentScore">0</span></div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <p id="questionText" class="question-text"></p>
+                        <div id="optionsContainer" class="options-container"></div>
+                        <button id="hintBtn" class="btn btn-hint" onclick="showHint()">💡 Hint</button>
+                        <div id="hintText" class="hint-text hidden"></div>
+                        <div id="explanationBox" class="explanation-box hidden">
+                            <div class="explanation-label">📖 Explanation:</div>
+                            <p id="explanationText"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-controls">
+                        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()" disabled>Next Question</button>
+                        <button id="finishBtn" class="btn btn-secondary hidden" onclick="finishQuiz()">Finish Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results -->
+                <div id="quizResults" class="hidden">
+                    <div class="results-card">
+                        <h3>Quiz Complete!</h3>
+                        <div class="results-score" id="finalScore">0/10</div>
+                        <p id="resultMessage"></p>
+                        <div class="results-stats">
+                            <div class="stat">
+                                <span class="stat-label">Correct</span>
+                                <span id="correctCount" class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Incorrect</span>
+                                <span id="incorrectCount" class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Time</span>
+                                <span id="totalTime" class="stat-value">0:00</span>
+                            </div>
+                        </div>
+                        <div id="recommendationBox" class="recommendation-box hidden">
+                            <div class="recommendation-label">📌 Recommended Next:</div>
+                            <p id="recommendationText"></p>
+                            <button class="btn btn-primary btn-sm" onclick="startRecommendedQuiz()">Practice Now</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="resetQuiz()">Try Another Topic</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Periodic Table Page -->
+        <section id="periodic" class="page">
+            <div class="container">
+                <h2>Periodic Table Explorer</h2>
+                <div class="search-bar">
+                    <input type="text" id="elementSearch" placeholder="Search element by name or symbol..." oninput="filterElements()">
+                </div>
+                <div class="category-legend">
+                    <span class="legend-item"><span class="legend-color" style="background:#ff6b6b"></span> Alkali Metals</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#ffa94d"></span> Alkaline Earth</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#ffd43b"></span> Transition Metals</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#69db7c"></span> Post-Transition</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#4dabf7"></span> Nonmetals</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#9775fa"></span> Halogens</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#f783ac"></span> Noble Gases</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#868e96"></span> Lanthanides</span>
+                    <span class="legend-item"><span class="legend-color" style="background:#5c7cfa"></span> Actinides</span>
+                </div>
+                <div class="periodic-table" id="periodicTable"></div>
+                
+                <!-- Element Detail Modal -->
+                <div id="elementModal" class="modal hidden">
+                    <div class="modal-content">
+                        <span class="close-modal" onclick="closeElementModal()">&times;</span>
+                        <div id="elementDetails"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Organic Chemistry Page -->
+        <section id="organic" class="page">
+            <div class="container">
+                <h2>Organic Chemistry Reaction Practice</h2>
+                
+                <div class="organic-nav">
+                    <button class="btn btn-tab active" data-category="substitution">Substitution</button>
+                    <button class="btn btn-tab" data-category="addition">Addition</button>
+                    <button class="btn btn-tab" data-category="elimination">Elimination</button>
+                    <button class="btn btn-tab" data-category="oxidation">Oxidation</button>
+                </div>
+
+                <div id="organicQuizArea">
+                    <div class="reaction-card">
+                        <p id="reactionQuestion" class="question-text"></p>
+                        <div class="reaction-visual" id="reactionVisual"></div>
+                        <div id="reactionOptions" class="options-container"></div>
+                        <button id="orgHintBtn" class="btn btn-hint" onclick="showOrganicHint()">💡 Hint</button>
+                        <div id="orgHintText" class="hint-text hidden"></div>
+                    </div>
+                    <div class="quiz-controls">
+                        <button id="orgNextBtn" class="btn btn-primary" onclick="nextOrganicQuestion()" disabled>Next Reaction</button>
+                    </div>
+                    <div class="organic-score">
+                        <span>Score: <span id="organicScore">0</span>/<span id="organicTotal">0</span></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="startOrganicBtn" onclick="startOrganicQuiz()">Start Practice</button>
+            </div>
+        </section>
+
+        <!-- Dashboard Page -->
+        <section id="dashboard" class="page">
+            <div class="container">
+                <h2>Your Learning Dashboard</h2>
+                <div class="dashboard-welcome" id="dashboardWelcome">
+                    <p class="dashboard-class" id="dashboardClass"></p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Score</h3>
+                        <div class="stat-big" id="totalScore">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Quizzes Taken</h3>
+                        <div class="stat-big" id="quizzesTaken">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Score</h3>
+                        <div class="stat-big" id="avgScore">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Day Streak</h3>
+                        <div class="stat-big" id="dayStreak">0</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h3>Topic Performance</h3>
+                        <div id="topicPerformance" class="performance-list"></div>
+                    </div>
+                    <div class="section-card">
+                        <h3>Strengths</h3>
+                        <div id="strengths" class="strengths-list"></div>
+                    </div>
+                    <div class="section-card">
+                        <h3>Areas to Improve</h3>
+                        <div id="weakTopics" class="weak-list"></div>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Score History</h3>
+                    <canvas id="scoreChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mistake Book Page -->
+        <section id="mistakes" class="page">
+            <div class="container">
+                <h2>📝 Mistake Book</h2>
+                <p class="section-subtitle">Review your incorrect answers to learn from mistakes</p>
+                
+                <div class="mistakes-controls">
+                    <select id="mistakeTopicFilter" class="filter-select" onchange="filterMistakes()">
+                        <option value="all">All Topics</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" onclick="retryMistakes()">🔄 Practice Mistakes</button>
+                    <button class="btn btn-danger btn-sm" onclick="clearMistakes()">🗑️ Clear All</button>
+                </div>
+
+                <div class="mistakes-stats">
+                    <div class="mistake-stat"><span id="totalMistakes">0</span><small>Total Mistakes</small></div>
+                    <div class="mistake-stat"><span id="mistakesReviewed">0</span><small>Reviewed</small></div>
+                    <div class="mistake-stat"><span id="mistakesRemaining">0</span><small>To Review</small></div>
+                </div>
+
+                <div id="mistakesList" class="mistakes-list">
+                    <p class="placeholder-text">No mistakes recorded yet. Take a quiz to start tracking!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard Page -->
+        <section id="leaderboard" class="page">
+            <div class="container">
+                <h2>🏆 Leaderboard</h2>
+                <p class="section-subtitle">See how you rank among all learners</p>
+                
+                <div class="leaderboard-tabs">
+                    <button class="btn btn-tab active" data-lb="total" onclick="switchLeaderboard('total')">Total Score</button>
+                    <button class="btn btn-tab" data-lb="accuracy" onclick="switchLeaderboard('accuracy')">Accuracy</button>
+                    <button class="btn btn-tab" data-lb="streak" onclick="switchLeaderboard('streak')">Best Streak</button>
+                    <button class="btn btn-tab" data-lb="quizzes" onclick="switchLeaderboard('quizzes')">Quizzes Done</button>
+                </div>
+
+                <div id="leaderboardList" class="leaderboard-list"></div>
+            </div>
+        </section>
+
+        <!-- Analysis Page -->
+        <section id="analysis" class="page">
+            <div class="container">
+                <h2>📈 Detailed Performance Analysis</h2>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h3>Accuracy Over Time</h3>
+                        <canvas id="accuracyChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>Topic Mastery</h3>
+                        <canvas id="topicRadarChart" width="400" height="250"></canvas>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>Time Per Question</h3>
+                        <canvas id="timeChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>Difficulty Distribution</h3>
+                        <canvas id="difficultyChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+
+                <div class="analysis-summary">
+                    <div class="analysis-card full-width">
+                        <h3>Performance Summary</h3>
+                        <div id="analysisSummary" class="summary-content"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confettiContainer" class="confetti-container"></div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
